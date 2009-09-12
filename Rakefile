@@ -6,7 +6,6 @@ begin
     s.date = Date.today.to_s
     s.summary = "Test Unit runner for spork"
     s.description = "Test Unit runner for spork"
-    s.email = "josh@technicalpickles.com"
     s.homepage = %q{http://github.com/timcharper/spork-testunit}
     s.authors = ["Tim Harper"]
     s.email = ["timcharper+spork@gmail.com"]
