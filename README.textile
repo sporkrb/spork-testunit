@@ -1,0 +1,7 @@
+h1. Test::Unit support for Spork
+
+This includes a plugin for spork to enable Test::Unit support for spork. It also comes with a very bare-bones drb client to run tests.
+
+To use it, install the gem, then fire up spork in your project directory (the file test/test_helper.rb must exist to detect that Test::Unit is being used).
+
+Then, once spork is running, invoke `testdrb test/your_test.rb` to run your tests under Spork.
