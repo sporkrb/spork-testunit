@@ -11,6 +11,9 @@ Gem::Specification.new do |s|
   s.description = %q{Test Unit runner for spork}
   s.email = ["timcharper+spork@gmail.com"]
   s.executables = ["testdrb"]
+  s.extra_rdoc_files = [
+    "README.textile"
+  ]
   s.files = [
     "bin/testdrb",
      "lib/spork/test_framework/test_unit.rb"
