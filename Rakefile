@@ -15,8 +15,8 @@ begin
     s.rubyforge_project = %q{spork-testunit}
     s.rubygems_version = %q{1.3.1}
     s.summary = %{spork-testunit #{s.version}}
-    # s is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-    
+
+    s.add_dependency 'spork', ">= 0.6.0"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
