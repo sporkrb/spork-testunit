@@ -8,7 +8,11 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
     r = Test::Unit::AutoRunner.new(true)
     exit(false) unless r.process_args(argv)
     r.run
-  rescue
-    puts 'error'
+  rescue => e
+    puts "-"*30
+    puts "Error executing #{argv.join(' ')}"
+    puts e.message
+    puts e.backtrace
+    puts "-"*30
   end
 end
