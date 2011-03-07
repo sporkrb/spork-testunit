@@ -1,5 +1,12 @@
 #!/usr/bin/env ruby
 
+# These fix 1.8.7 test/unit results where a DRbUnknown is returned because the testdrb client doesn't have the classes
+# in its local namespace.  (See issue #2)
+unless defined? MiniTest
+  # MiniTest is Ruby 1.9, and the classes below only exist in the pre 1.9 test/unit
+  require 'test/unit/testresult'
+  require 'test/unit/failure'
+end
 
 require 'drb'
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
