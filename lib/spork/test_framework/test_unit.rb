@@ -8,12 +8,21 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       MiniTest::Unit.output = stdout
 
       # MiniTest's test/unit does not support -I
-      argv.reject!{|item|
-        if item =~ /-I(.*)/
-          $LOAD_PATH << $1
-          true
+      # Extract it and remove from arguments that are passed to testrb.
+      argv.each_with_index do |arg, idx|
+        if arg =~ /-I(.*)/
+          if $1 == ''
+            # Path is next argument.
+            include_path = argv[idx + 1]
+            argv[idx + 1] = nil # Will be squashed when compact called.
+          else
+            include_path = $1
+          end
+          $LOAD_PATH << include_path
+          argv[idx] = nil
         end
-      }
+      end
+      argv.compact!
 
       # copied from ruby-1.9.2-p136/bin/testrb:
       require 'test/unit'
