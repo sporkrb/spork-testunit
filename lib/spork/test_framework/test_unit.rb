@@ -27,6 +27,10 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       require 'test/unit'                                                                                         
       if defined? Turn
         # Use turn's wrapper around minitest
+        if argv.empty?
+          puts "Usage: testrb [options] tests..."
+          exit 1
+        end
         runner = Turn::MiniRunner.new
         config = Turn.config do |c|
           c.tests     = argv
