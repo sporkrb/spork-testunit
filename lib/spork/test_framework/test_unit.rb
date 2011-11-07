@@ -7,7 +7,7 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       # Ruby 1.9
       MiniTest::Unit.output = stdout
 
-      # MiniTest's test/unit does not support -I or -r
+      # MiniTest's test/unit does not support -I, -r, or -e
       # Extract them and remove from arguments that are passed to testrb.
       argv.each_with_index do |arg, idx|
         if arg =~ /-I(.*)/
@@ -30,6 +30,9 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
           end
           require require_file
           argv[idx] = nil
+        elsif arg =~ /^-e$/
+          eval argv[idx + 1]
+          argv[idx] = argv[idx + 1] = nil
         end
       end
       argv.compact!
