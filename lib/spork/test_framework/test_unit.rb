@@ -38,7 +38,20 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       argv.compact!
 
       require 'test/unit'                                                                                         
-      if Test::Unit.respond_to?(:setup_argv)
+      if defined? Turn
+        # Use turn's wrapper around minitest
+        if argv.empty?
+          puts "Usage: testrb [options] tests..."
+          exit 1
+        end
+        runner = Turn::MiniRunner.new
+        config = Turn.config do |c|
+          c.tests     = argv
+          c.framework = :minitest
+        end
+        controller = Turn::Controller.new(config)
+        controller.start
+      elsif Test::Unit.respond_to?(:setup_argv)
         # copied from ruby-1.9.2-p136/bin/testrb:
         Test::Unit.setup_argv(argv) {|files|
           if files.empty?
