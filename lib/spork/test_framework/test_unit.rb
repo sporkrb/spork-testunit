@@ -7,8 +7,8 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       # Ruby 1.9
       MiniTest::Unit.output = stdout
 
-      # MiniTest's test/unit does not support -I
-      # Extract it and remove from arguments that are passed to testrb.
+      # MiniTest's test/unit does not support -I, -r, or -e
+      # Extract them and remove from arguments that are passed to testrb.
       argv.each_with_index do |arg, idx|
         if arg =~ /-I(.*)/
           if $1 == ''
@@ -20,6 +20,19 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
           end
           $LOAD_PATH << include_path
           argv[idx] = nil
+        elsif arg =~ /-r(.*)/
+          if $1 == ''
+            # File is next argument.
+            require_file = argv[idx + 1]
+            argv[idx + 1] = nil # Will be squashed when compact called.
+          else
+            require_file = $1
+          end
+          require require_file
+          argv[idx] = nil
+        elsif arg =~ /^-e$/
+          eval argv[idx + 1]
+          argv[idx] = argv[idx + 1] = nil
         end
       end
       argv.compact!
