@@ -5,6 +5,7 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
   def run_tests(argv, stderr, stdout)
     if defined? MiniTest
       # Ruby 1.9
+      stdout = Purdytest::IO.new(stdout) if defined? Purdytest # rewrap
       MiniTest::Unit.output = stdout
 
       # MiniTest's test/unit does not support -I, -r, or -e
