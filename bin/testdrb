@@ -12,6 +12,12 @@ end
 
 require 'drb'
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
-test_server = DRbObject.new_with_uri("druby://127.0.0.1:8988")
+# Accept an argument for the sport port.
+if (index = ARGV.index('-p') || ARGV.index('--port'))
+  ARGV.delete_at index
+  spork_port = ARGV.delete_at(index)
+end
+spork_port ||= 8988
+test_server = DRbObject.new_with_uri("druby://127.0.0.1:#{ spork_port }")
 result = test_server.run(ARGV, $stderr, $stdout)
 
