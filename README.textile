@@ -4,4 +4,4 @@ This includes a plugin for spork to enable Test::Unit support for spork. It also
 
 To use it, install the gem, then fire up spork in your project directory (the file test/test_helper.rb must exist to detect that Test::Unit is being used).
 
-Then, once spork is running, invoke @testdrb@ (e.g. @testdrb -Itest test/your_test.rb@) to run your tests under Spork.
+Then, once spork is running, invoke @testdrb@ (e.g. @testdrb -Itest test/your_test.rb@) to run your tests under Spork. To use a port other than the default simply add @-p 1234@ or @--port 1234@ to you command (where @1234@ is the port number that Spork is running on).

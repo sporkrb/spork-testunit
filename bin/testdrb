@@ -12,7 +12,7 @@ end
 
 require 'drb'
 DRb.start_service("druby://127.0.0.1:0") # this allows Ruby to do some magical stuff so you can pass an output stream over DRb.
-# Accept an argument for the sport port.
+# Accept an argument for the spork port.
 if (index = ARGV.index('-p') || ARGV.index('--port'))
   ARGV.delete_at index
   spork_port = ARGV.delete_at(index)
